@@ -33,68 +33,7 @@ function ensureDateRange(startDate, days) {
     stmt.finalize(err => (err ? reject(err) : resolve()));
   });
 }
-//exports.getAvailability = async (req, res) => {
-//  try {
-//    const disableToday = req.query.disableToday === "true";
-//    const daysAhead = 30;
-//
-//    const start = new Date();
-//    if (disableToday) {
-//      start.setDate(start.getDate() + 1);
-//    }
-//
-//    const startDateStr = start.toISOString().split("T")[0];
-//
-//    await ensureDateRange(start, daysAhead);
-//
-//    db.all(
-//      `
-//      SELECT
-//        date,
-//        appointment_total,
-//        appointment_booked
-//      FROM daily_slots
-//      WHERE date >= ?
-//      ORDER BY date ASC
-//      LIMIT ?
-//      `,
-//      [startDateStr, daysAhead],
-//      (err, rows) => {
-//        if (err) {
-//          console.error(err);
-//          return res.status(500).json({ message: "DB error" });
-//        }
-//
-//        const result = rows.map(r => {
-//          const d = new Date(r.date);
-//          const day = d.getDay();
-//          const isHoliday = day === 0 || day === 6;
-//
-//          const available = isHoliday
-//            ? 0
-//            : r.appointment_total - r.appointment_booked;
-//
-//          return {
-//            date: r.date,
-//            appointment_total: r.appointment_total,
-//            appointment_booked: r.appointment_booked,
-//            available_slots: available,
-//            status: isHoliday
-//              ? "HOLIDAY"
-//              : available <= 0
-//              ? "FULL"
-//              : "AVAILABLE"
-//          };
-//        });
-//
-//        res.json(result);
-//      }
-//    );
-//  } catch (e) {
-//    console.error(e);
-//    res.status(500).json({ message: "Availability error" });
-//  }
-//};
+
 exports.getAvailability = async (req, res) => {
   try {
     const disableToday = req.query.disableToday === "true";
