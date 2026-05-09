@@ -150,7 +150,6 @@ function isBefore11IST() {
   }
   async function checkLocation() {
 
-    // ✅ BEFORE 11 → NO GEOFENCING
     if (isBefore11IST()) {
 
       statusEl.innerText =
@@ -161,7 +160,6 @@ function isBefore11IST() {
       return;
     }
 
-    // ⛳ AFTER 11 → APPLY GEOFENCING
     if (!navigator.geolocation) {
       statusEl.innerText = "❌ Geolocation not supported";
       return;
