@@ -129,36 +129,7 @@ async function loadTokens() {
 
     const { count, type } = parseToken(row.token);
     tr.classList.add(type.toLowerCase());
-    // let visitedCell = "";
-//    tr.innerHTML = `
-//      <td>${i + 1}</td>
-//      <td>${formatDateTime(row.created_at)}</td>
-//      <td>${formatDate(row.date)}</td>
-//      <td>${count}</td>
-//      <td>${type}</td>
-//      <td>${row.token}</td>
-//      <td>${row.name}</td>
-//      <td>${row.mobile}</td>
-//      <td>${row.gender}</td>
-//      <td>${row.age}</td>
-//      <td>${row.district}</td>
-//      <td>${row.service_type}</td>
-//    `;
-// if (row.visited === 1) {
-//   if (isUndoAllowed(row.visited_at)) {
-//     visitedCell = `
-//       Marked 
-//       <button style="margin-left:6px;font-size:11px;"
-//               onclick="undoVisited(${row.id})">
-//         Undo
-//       </button>
-//     `;
-//   } else {
-//     visitedCell = "Marked";
-//   }
-// } else {
-//   visitedCell = `<input type="checkbox" onclick="markVisited(${row.id})">`;
-// }
+  
 let visitedCell = "";
 
 if (row.visited === 1) {
