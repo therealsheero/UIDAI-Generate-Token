@@ -17,7 +17,6 @@ app.use("/api", locationRoutes);
 app.get("/", (req, res) => {
   res.send("Appointment Token System API is running");
 });
-// app.use("/api/otp", require("./routes/otp.routes"));
 app.use("/api", bookingRoutes);
 app.use("/api", availabilityRoutes);
 
