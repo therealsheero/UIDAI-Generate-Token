@@ -15,28 +15,7 @@
 
 <p id="status"></p>
 
-<!-- <script>
-async function login() {
-  const res = await fetch("http://localhost:5000/api/guard/login", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      username: username.value,
-      password: password.value
-    })
-  });
 
-  const data = await res.json();
-
-  if (!res.ok) {
-    status.innerText = data.message;
-    return;
-  }
-
-  localStorage.setItem("guardToken", data.token);
-  window.location.href = "guard.html";
-}
-</script> -->
 <script>
 
 async function login() {
