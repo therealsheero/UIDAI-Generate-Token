@@ -1,169 +1,8 @@
-//const adminToken = localStorage.getItem("adminToken");
-//
-//if(!adminToken){
-//window.location.href="admin-login.html";
-//}
-//
-//async function loadSettings(){
-//
-//const res = await fetch("/api/admin/priority-settings",{
-//headers:{"x-admin-token":adminToken}
-//});
-//
-//const data = await res.json();
-//
-//const rules={};
-//data.rules.forEach(r=>rules[r.rule_key]=r.rule_value);
-//
-//document.getElementById("childAge").value=rules.child_age_limit;
-//document.getElementById("seniorAge").value=rules.senior_age_limit;
-//document.getElementById("femaleAge").value=rules.female_priority_age;
-//
-//renderDistricts(data.districts);
-//
-//}
-//const districts = [
-//
-//"Agra","Aligarh","Ambedkar Nagar","Amethi","Amroha",
-//"Auraiya","Ayodhya","Azamgarh","Baghpat","Bahraich",
-//"Ballia","Balrampur","Banda","Barabanki","Bareilly",
-//"Basti","Bhadohi","Bijnor","Budaun","Bulandshahr",
-//"Chandauli","Chitrakoot","Deoria","Etah","Etawah",
-//"Farrukhabad","Fatehpur","Firozabad","Gautam Buddha Nagar",
-//"Ghaziabad","Ghazipur","Gonda","Gorakhpur","Hamirpur",
-//"Hapur","Hardoi","Hathras","Jalaun","Jaunpur",
-//"Jhansi","Kannauj","Kanpur Dehat","Kanpur Nagar",
-//"Kasganj","Kaushambi","Kheri","Kushinagar","Lalitpur",
-//"Lucknow","Maharajganj","Mahoba","Mainpuri","Mathura",
-//"Mau","Meerut","Mirzapur","Moradabad","Muzaffarnagar",
-//"Pilibhit","Pratapgarh","Prayagraj","Raebareli","Rampur",
-//"Saharanpur","Sambhal","Sant Kabir Nagar","Shahjahanpur",
-//"Shamli","Shravasti","Siddharthnagar","Sitapur",
-//"Sonbhadra","Sultanpur","Unnao","Varanasi"
-//
-//];
-//function loadDistrictDropdown(){
-//
-//const select=document.getElementById("districtSelect");
-//
-//districts.forEach(d=>{
-//
-//const option=document.createElement("option");
-//
-//option.value=d;
-//option.textContent=d;
-//
-//select.appendChild(option);
-//
-//});
-//
-//}
-//
-//function renderDistricts(districts){
-//
-//const list=document.getElementById("districtList");
-//list.innerHTML="";
-//
-//districts.forEach(d=>{
-//
-//const li=document.createElement("li");
-//
-//li.innerHTML=`
-//${d.district}
-//<button class="removeBtn" onclick="deleteDistrict('${d.district}')">
-//Remove
-//</button>
-//`;
-//
-//list.appendChild(li);
-//
-//});
-//
-//}
-//
-//async function saveRules(){
-//
-//const child_age_limit=document.getElementById("childAge").value;
-//const senior_age_limit=document.getElementById("seniorAge").value;
-//const female_priority_age=document.getElementById("femaleAge").value;
-//
-//await fetch("/api/admin/update-priority-rules",{
-//
-//method:"POST",
-//
-//headers:{
-//"Content-Type":"application/json",
-//"x-admin-token":adminToken
-//},
-//
-//body:JSON.stringify({
-//child_age_limit,
-//senior_age_limit,
-//female_priority_age
-//})
-//
-//});
-//
-//alert("Rules updated");
-//
-//}
-//
-//async function addDistrict(){
-//
-//const district=document.getElementById("districtSelect").value;
-//
-//if(!district){
-//alert("Select district");
-//return;
-//}
-//
-//await fetch("/api/admin/add-priority-district",{
-//
-//method:"POST",
-//
-//headers:{
-//"Content-Type":"application/json",
-//"x-admin-token":adminToken
-//},
-//
-//body:JSON.stringify({district})
-//
-//});
-//
-//loadSettings();
-//
-//}
-//
-//async function deleteDistrict(district){
-//
-//await fetch("/api/admin/delete-priority-district",{
-//
-//method:"POST",
-//
-//headers:{
-//"Content-Type":"application/json",
-//"x-admin-token":adminToken
-//},
-//
-//body:JSON.stringify({district})
-//
-//});
-//
-//loadSettings();
-//
-//}
-//
-//loadDistrictDropdown();
-//loadSettings();
-
-
 const adminToken = localStorage.getItem("adminToken");
 
 if (!adminToken) {
   window.location.href = "admin-login.html";
 }
-
-/* -------------------- LOAD SETTINGS -------------------- */
 async function loadSettings() {
 
   const res = await fetch("http://localhost:5000/api/admin/priority-settings", {
@@ -181,8 +20,6 @@ async function loadSettings() {
 
   renderDistricts(data.districts);
 }
-
-/* -------------------- DISTRICTS -------------------- */
 
 const districts = [
   "Agra","Aligarh","Ambedkar Nagar","Amethi","Amroha",
@@ -293,8 +130,6 @@ async function deleteDistrict(district) {
   loadSettings();
 }
 
-/* -------------------- HOLIDAYS -------------------- */
-
 async function loadHolidays() {
 
   const res = await fetch("http://localhost:5000/api/admin/holidays", {
@@ -304,8 +139,8 @@ async function loadHolidays() {
   const data = await res.json();
 
   const list = document.getElementById("holidayList");
-  list.style.listStyle = "none";   // ? removes dots
-list.style.paddingLeft = "0";    // ? removes spacing
+  list.style.listStyle = "none";   
+list.style.paddingLeft = "0";    
   list.innerHTML = "";
 
   data.forEach(h => {
@@ -362,7 +197,6 @@ async function deleteHoliday(date) {
   loadHolidays();
 }
 
-/* -------------------- INIT -------------------- */
 
 loadDistrictDropdown();
 loadSettings();
