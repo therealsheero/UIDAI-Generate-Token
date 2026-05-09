@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Guard Login</title>
+  <link rel="stylesheet" href="css/style.css?v=3">
+</head>
+<body>
+
+<h2>Guard Login</h2>
+
+<input id="username" placeholder="Username">
+<input id="password" type="password" placeholder="Password">
+
+<button onclick="login()">Login</button>
+
+<p id="status"></p>
+
+<!-- <script>
+async function login() {
+  const res = await fetch("http://localhost:5000/api/guard/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      username: username.value,
+      password: password.value
+    })
+  });
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    status.innerText = data.message;
+    return;
+  }
+
+  localStorage.setItem("guardToken", data.token);
+  window.location.href = "guard.html";
+}
+</script> -->
+<script>
+
+async function login() {
+
+  const res = await fetch(
+    "http://localhost:5000/api/guard/login",
+    {
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json"
+      },
+
+      body: JSON.stringify({
+
+        username:
+          document.getElementById("username").value,
+
+        password:
+          document.getElementById("password").value
+      })
+    }
+  );
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    alert(data.message);
+    return;
+  }
+
+  // Store generic guard token
+  localStorage.setItem(
+    "guardToken",
+    data.token
+  );
+
+  // redirect page
+  window.location.href = data.page;
+}
+
+</script>
+</body>
+</html>
+
+

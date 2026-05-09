@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Token Generation Portal / टोकन जनरेशन पोर्टल</title>
+  <link rel="icon" href="/assets/favicon.svg?v=2">
+  <link rel="stylesheet" href="css/style.css?v=8">
+  <style>
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-8px); }
+  50% { transform: translateY(0); }
+  70% { transform: translateY(-4px); }
+}
+
+@keyframes wave {
+  0% { transform: rotate(0deg); }
+  20% { transform: rotate(10deg); }
+  40% { transform: rotate(-8deg); }
+  60% { transform: rotate(6deg); }
+  80% { transform: rotate(-4deg); }
+  100% { transform: rotate(0deg); }
+}
+</style>
+
+
+</head>
+
+<body>
+<header class="gov-header">
+  <div class="gov-left">
+    <img src="assets/india-emblem.png" alt="Government of India Logo">
+  </div>
+
+  <div class="gov-center">
+    <h1>Government of India / भारत सरकार</h1>
+    <p>Appointment & Walk-in Token Management System</p>
+  </div>
+
+  <div class="gov-right">
+    <img src="assets/Aadhaar_Small.png" alt="Department Logo">
+  </div>
+</header>
+
+<h2 style="text-align:center;">
+  Token Generation Portal / टोकन जनरेशन पोर्टल
+</h2>
+<div style="text-align:center;">
+  <div style="
+    display:inline-block;
+    background: lightcyan;
+    border:1px solid #91d5ff;
+    border-radius:8px;
+    padding:12px 16px;
+  ">
+    <p style="
+      text-align:center;
+      font-weight:700;
+      color: darkslategray;
+      margin:0;
+    ">
+      This is for UIDAI RO LUCKNOW, 3rd Floor, Uttar Pradesh Samaj Kalyan Nirman Nigam Building, TC-46/ V, Vibhuti Khand, Gomti Nagar, Lucknow- 226010.
+    </p>
+  </div>
+</div>
+<h3 style="text-align:center; margin-top:20px; color:#b30000; font-size: 20px;">
+  Call on 1947 to register your complaint, and keep the complaint number (QRC) with you for future reference. 
+  <br>
+  अपनी शिकायत दर्ज कराने के लिए 1947 पर कॉल करें और भविष्य में संदर्भ के लिए शिकायत संख्या (क्यूआरसी) अपने पास रखें।
+</h3>
+<p id="locationStatus" style="text-align:center; font-weight:600;">
+  ⏳ Checking booking availability...
+</p>
+<div style="text-align:center; margin-top:30px;">
+  <button id="appointmentBtn" class="action-btn" style="display:none;">
+    📅 Future Appointment / भविष्य की नियुक्ति
+  </button>
+
+  <button id="walkinBtn" class="action-btn" style="display:none;">
+    🚶 Current Day Appointment / वर्तमान तिथि नियुक्ति
+  </button>
+</div>
+<div style="
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:15px;
+  background:#e6f7ff;
+  color:#003366;
+  padding:12px 16px;
+  margin:20px auto;
+  font-weight:bold;
+  font-size:24px;
+  border-radius:8px;
+  border:1px solid #91d5ff;
+  max-width:440px;
+">
+  <div style="text-align:center;">
+    लाइन से छुटकारा पाओ।<br>
+    अंगूठा स्कैन करो, <br> टोकन तुरंत पाओ!
+  </div>
+  <img src="assets/mascot.png" alt="Mascot" style="
+    width:175px;
+    height:175px;
+    object-fit:contain;
+    transform-origin: bottom center;
+    animation: wave 3s infinite;
+  ">
+
+</div>
+<div style="text-align:center; margin-top:25px;">
+  <button id="adminLoginBtn"
+          onclick="window.location.href='admin-login.html'">
+    🔐 Admin Login / व्यवस्थापक लॉगिन
+  </button>
+  <button id="guardLoginBtn"
+          onclick="window.location.href='guard-login.html'">
+    🛡️ Guard Login / गार्ड लॉगिन
+  </button>
+
+</div>
+<div id="noticeBox" style="
+  display:none;
+  background:yellow ;
+  color:darkblue;
+  padding:12px;
+  border:1px solid lightcoral;
+  margin:10px;
+  font-weight:bold;
+  text-align:center;
+  border-radius:6px;
+">
+</div>
+<script>
+  const statusEl = document.getElementById("locationStatus");
+  const appointmentBtn = document.getElementById("appointmentBtn");
+  const walkinBtn = document.getElementById("walkinBtn");
+  const guardLoginBtn = document.getElementById("guardLoginBtn");
+  appointmentBtn.style.display = "inline-block";
+
+function isBefore11IST() {
+    const now = new Date();
+
+    const ist = new Date(
+      now.toLocaleString("en-US", { timeZone: "Asia/Kolkata" })
+    );
+
+    return ist.getHours() < 11;
+  }
+  async function checkLocation() {
+
+    // ✅ BEFORE 11 → NO GEOFENCING
+    if (isBefore11IST()) {
+
+      statusEl.innerText =
+        "Book your appointment";
+
+      walkinBtn.style.display = "inline-block";
+
+      return;
+    }
+
+    // ⛳ AFTER 11 → APPLY GEOFENCING
+    if (!navigator.geolocation) {
+      statusEl.innerText = "❌ Geolocation not supported";
+      return;
+    }
+
+    statusEl.innerText = "📍 Checking your location...";
+
+    navigator.geolocation.getCurrentPosition(
+      async (pos) => {
+        try {
+
+          const res = await fetch("http://localhost:5000/api/location-check", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              latitude: pos.coords.latitude,
+              longitude: pos.coords.longitude
+            })
+          });
+
+          const data = await res.json();
+
+          localStorage.setItem("distance_meters", data.distance_meters);
+
+          statusEl.innerText =
+            `📍 Distance from office: ${data.distance_meters} meters`;
+
+          if (data.distance_meters <= 100) {
+            walkinBtn.style.display = "inline-block";
+          }
+
+        } catch {
+          statusEl.innerText = "❌ Failed to verify location";
+        }
+      },
+      () => {
+        statusEl.innerText = "❌ Location permission denied";
+      }
+    );
+  }
+
+  appointmentBtn.onclick = () => {
+    window.location.href = "appointment.html";
+  };
+
+  walkinBtn.onclick = () => {
+    window.location.href = "walkin.html";
+  };
+
+
+  window.addEventListener("load", () => {
+  checkLocation();
+});
+
+</script>
+<script>
+(async function() {
+
+  try {
+    const res = await fetch("http://localhost:5000/api/admin/today-notice");
+    const data = await res.json();
+
+    const box = document.getElementById("noticeBox");
+
+    if (data.message && data.message.trim() !== "") {
+
+      box.innerText = "NOTICE: " + data.message;
+      box.style.display = "block";
+
+    }
+
+  } catch (e) {
+    console.error("Notice load failed");
+  }
+
+})();
+</script>
+
+</body>
+</html>

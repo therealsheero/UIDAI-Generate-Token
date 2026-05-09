@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<title>Priority Settings</title>
+
+<link rel="stylesheet" href="css/style.css?v=3">
+
+</head>
+
+<body>
+
+<header class="gov-header">
+  <div class="gov-left">
+    <img src="assets/india-emblem.png">
+  </div>
+
+  <div class="gov-center">
+    <h1>Government of India</h1>
+    <p>Admin Priority Configuration</p>
+  </div>
+
+  <div class="gov-right">
+    <img src="assets/Aadhaar_Small.png">
+  </div>
+</header>
+
+<h2>Priority Settings</h2>
+
+<div class="priority-wrapper">
+
+<!-- AGE RULES -->
+<div class="priority-box">
+
+<h2>Age Priority Rules</h2>
+
+<label>Child Age Limit</label>
+<input id="childAge">
+
+<label>Senior Citizen Age</label>
+<input id="seniorAge">
+
+<label>Female Priority Age</label>
+<input id="femaleAge">
+
+<button onclick="saveRules()">Save Rules</button>
+<h2>Holiday Management</h2>
+
+<label>Select Date</label>
+<input type="date" id="holidayDate">
+
+<label>Reason</label>
+<input type="text" id="holidayReason" placeholder="Holiday reason">
+
+<button onclick="addHoliday()">Add Holiday</button>
+
+<h3>Upcoming Holidays</h3>
+
+<ul id="holidayList"></ul>
+
+</div>
+
+
+<!-- DISTRICT RULES -->
+<div class="priority-box">
+
+<h2>Long Distance Districts</h2>
+
+<select id="districtSelect"></select>
+
+<button onclick="addDistrict()">Add District</button>
+
+<h3>Current Districts</h3>
+
+<ul id="districtList"></ul>
+
+</div>
+
+</div>
+
+<script src="js/priority-settings.js?v=8"></script>
+
+</body>
+</html>

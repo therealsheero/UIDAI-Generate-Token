@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Token Dashboard</title>
+  <link rel="icon" href="/assets/favicon.svg?v=2">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-image: url("assets/bg3.png");
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    .calendar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .date-box {
+  padding: 10px;
+  cursor: pointer;
+  min-width: 130px;
+  font-size: 12px;
+  text-align: center;
+
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(255,255,255,0.4);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+
+  transition: all 0.3s ease;
+}
+
+.date-box:hover {
+  transform: scale(1.05);
+}
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      font-size: 13px;
+    }
+
+    th {
+      background: #f2f2f2;
+    }
+
+    tr.priority {
+      background: #ffe6e6;
+      font-weight: bold;
+    }
+
+    tr.appointment {
+      background: #fff9c4;
+    }
+
+    .actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+/* Override global button rule ONLY here */
+.actions button {
+  display: inline-block;   /* overrides global block */
+  margin: 0;               /* remove auto centering */
+  padding: 10px 16px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  color: white;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* Hover */
+.actions button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.25);
+}
+
+/* Click */
+.actions button:active {
+  transform: scale(0.96);
+}
+
+/* Individual colors */
+.actions button:nth-child(1) {
+  background: linear-gradient(135deg, #e6f7f1, #d1fae5);
+  color: #065f46;
+}
+
+.actions button:nth-child(2) {
+  background: linear-gradient(135deg, #eef4ff, #dbeafe);
+  color: #1e3a8a;
+}
+
+.actions button:nth-child(3) {
+  background: linear-gradient(135deg, #fff1f2, #ffe4e6);
+  color: #7f1d1d;
+}
+
+.actions button:nth-child(4) {
+  background: linear-gradient(135deg, #fff7ed, #ffedd5);
+  color: #7c2d12;
+}
+.mini-btn {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 6px 12px;
+  font-size: 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  color: white;
+  transition: all 0.2s ease;
+}
+
+/* Save button */
+/* Save button – soft muted green */
+/* Save – soft fresh green */
+.save-btn {
+  background: #eafaf1;
+  color: #1f7a5a;
+  border: 1px solid #c7f0d8;
+}
+
+/* Edit – light elegant blue */
+.edit-btn {
+  background: #eef4ff;
+  color: #2f5aa8;
+  border: 1px solid #d6e4ff;
+}
+
+/* Hover */
+.mini-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Click */
+.mini-btn:active {
+  transform: scale(0.95);
+}
+    tr.ap, tr.wp {
+  background-color: #ffe6e6;
+  font-weight: bold;
+}
+
+tr.an {
+  background-color: #fff9c4;
+}
+
+tr.wl {
+  background-color: #e6fffa;
+}
+
+tr.wn {
+  background-color: #ffffff;
+}
+
+  </style>
+</head>
+
+<body>
+
+<h2>Token Admin Dashboard</h2>
+
+<div class="calendar" id="calendar"></div>
+<div class="actions" id="tableActions" style="display:none;">
+  <button onclick="refreshCurrent()">🔄 Refresh</button>
+  <button onclick="downloadCSV()">⬇ Download CSV</button>
+  <button onclick="logout()">🚪 Logout</button>
+  <button onclick="openPrioritySettings()">⚙ Priority Settings </button>
+</div>
+<h3 id="dashboardHeading" 
+    style="text-align:center; margin-top:20px; display:none;">
+  Dashboard Summary
+</h3>
+<div id="dashboardSection" style="display:flex; gap:10px; align-items:flex-start; justify-content:center; margin-top:20px;">
+
+  <div id="dashboardBoxes" 
+     style="display:flex; gap:8px; align-items:flex-start;">
+</div>
+
+
+  <div style="width:400px; height:300px; position:relative;"">
+    <canvas id="districtChart"></canvas>
+  </div>
+
+</div>
+
+<h3 id="tableHeading" style="text-align:center; margin-top:20px; display:none;">
+  Token Details
+</h3>
+<table id="tokenTable" style="display:none;">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Token Created</th>
+      <th>Appointment / Walk-in Date</th>
+      <th>Token Count</th>
+      <th>Token Type</th>
+<!--       <th>Full Token</th> -->
+       <th>EID</th>
+      <th>Name</th>
+      <th>Mobile</th>
+      <th>Gender</th>
+      <th>Age</th>
+<!--       <th>PWD</th> -->
+      <th>District</th>
+      <th>Service</th>
+<!--       <th>Booking Distance (km)</th> -->
+      <th>Expected Time</th>
+      <th>Entry Time</th>
+      <th>Visited At</th>
+      <th>Time Taken</th>
+      <th>Reference Of</th>
+    </tr>
+  </thead>
+
+  <tbody></tbody>
+</table>
+<!-- <h2>
+Resident Physical / Reference Appointments
+</h2>
+<table id="physicalTable">
+
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Token</th>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Mobile</th>
+      <th>Aadhaar</th>
+      <th>Gender</th>
+      <th>District</th>
+      <th>Service</th>
+      <th>Type</th>
+      <th>Visited Time</th>
+      <th>Reference Of</th>
+
+    </tr>
+  </thead>
+
+  <tbody></tbody>
+
+</table> -->
+<script src="js/chart.min.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

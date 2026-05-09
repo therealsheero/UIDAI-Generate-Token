@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Walk-in Token</title>
+
+  <link rel="stylesheet" href="css/style.css?v=3">
+</head>
+
+<body>
+<header class="gov-header">
+  <div class="gov-left">
+    <img src="assets/india-emblem.png" alt="Government of India Logo">
+  </div>
+  <div class="gov-center">
+    <h1>Government of India / भारत सरकार</h1>
+    <p>Walk-in Token Registration/ वॉक-इन टोकन पंजीकरण कराना</p>
+  </div>
+  <div class="gov-right">
+    <img src="assets/Aadhaar_Small.png" alt="Department Logo">
+  </div>
+</header>
+
+<h2 style="text-align:center;">Walk-in Token Registration/ वॉक-इन टोकन पंजीकरण कराना</h2>
+
+<p id="infoText" style="text-align:center;"></p>
+<div id="slotInfo" style="display: center"></div>
+
+<hr />
+<div id="formWrapper" style="display:none;">
+  <h3 style="color:blue;font-weight:bold; text-align:center; line-height:1.4;">
+    DISCLAIMER: THIS SERVICE IS FREE OF COST. In one day you will only get one token. Kindly fill the details properly, in case of wrong details your token will be cancelled.
+    <br>
+    अस्वीकरण: यह सेवा नि:शुल्क है। एक दिन में आपको केवल एक ही टोकन मिलेगा। कृपया विवरण सही ढंग से भरें, गलत जानकारी होने पर आपका टोकन रद्द कर दिया जाएगा।
+  </h3>
+  <h3>Applicant Details/ आवेदक का विवरण</h3>
+
+  <form id="bookingForm">
+    <label>QRC/ क्यूआरसी संख्या (14 अंक)</label>
+    <label>To generate QRC call on 1947 for complaint/ क्यूआरसी उत्पन्न करने के लिए 1947 पर कॉल करें</label>
+      <input id="qrc" type="text"
+             pattern="^S[A-Za-z0-9]{10}000$"
+             maxlength="14"
+             placeholder="SXXXXXXXXX000" title="The QRC must start with S and end with 000."
+             required />
+    <label>
+Enrollment Number / नामांकन संख्या
+</label>
+
+<input
+  id="enrollment_no"
+  placeholder="1234/56789/48261"
+  required
+>
+<label>
+Enrollment Date / नामांकन तिथि
+</label>
+
+<input
+  id="eid_date"
+  type="date"
+  required
+>
+<label>
+Enrollment Time / नामांकन समय
+</label>
+
+<!-- <input
+  id="eid_time"
+  type="time"
+  step="1"
+  required
+> -->
+<div class="eid-time-wrapper">
+
+  <select id="eid_hour" required>
+    <!-- <option value="">HH</option> -->
+  </select>
+
+  <span>:</span>
+
+  <select id="eid_minute" required>
+    <option value="">MM</option>
+  </select>
+
+  <span>:</span>
+
+  <select id="eid_second" required>
+    <option value="">SS</option>
+  </select>
+
+</div>
+    <label>Name/ नाम</label>
+    <input id="name" required>
+
+    <label>Mobile/ मोबाइल</label>
+    <label>OTP may be sent on the mobile number/ मोबाइल नंबर पर ओटीपी भेजा जा सकता है</label>
+    <input id="mobile" pattern="[0-9]{10}" maxlength="10" required>
+
+    <label>Aadhaar (Last 4)/ आधार (अंतिम 4 अंक)</label>
+    <input id="aadhaar" type="text" pattern="[0-9]{4}" maxlength="4" inputmode="numeric" placeholder="XXXX" required />
+
+    <label> Gender/ लिंग</label>
+    <select id="gender">
+      <option value="Male">Male/ पुरुष</option>
+      <option value="Female">Female/ महिला</option>
+      <option value="Other">Other/ अन्य</option>
+    </select>
+
+    <label>Age/ आयु</label>
+    <input id="age" type="number" min = "0" max = "99" step = "1" required>
+
+<!--     <label for="divyang">Divyang/ दिव्यांग</label> -->
+<!--     <label>Supporting documents will be required to shown before request is entertained / अनुरोध स्वीकार करने से पहले सहायक दस्तावेज दिखाने होंगे</label>  -->
+<!--     <select id="divyang">  -->
+<!--       <option value="No">No/ नहीं</option>  -->
+<!--       <option value="Yes">Yes/ हाँ</option>  -->
+<!--     </select> -->
+
+    <label>District (Your District)/ ज़िला( आपका जिला)</label>
+    <select id="district" required>
+        <option value="Agra">Agra/आगरा</option>
+        <option value="Aligarh">Aligarh/अलीगढ</option>
+        <option value="Ambedkar Nagar">Ambedkar Nagar/अंबेडकर नगर</option>
+        <option value="Amethi">Amethi/अमेठी</option>
+        <option value="Amroha">Amroha/अमरोहा</option>
+        <option value="Auraiya">Auraiya/अुरैया</option>
+        <option value="Ayodhya">Ayodhya/अयोध्या</option>
+        <option value="Azamgarh">Azamgarh/आजमगढ़</option>
+        <option value="Baghpat">Baghpat/बागपत</option>
+        <option value="Bahraich">Bahraich/बहराइच</option>
+        <option value="Ballia">Ballia/बलिया</option>
+        <option value="Balrampur">Balrampur/बलरामपुर</option>
+        <option value="Banda">Banda/बांदा</option> 
+        <option value="Barabanki">Barabanki/बाराबंकी</option>
+        <option value="Bareilly">Bareilly/बरेली</option>
+        <option value="Basti">Basti/बस्ती</option>
+        <option value="Bhadohi">Bhadohi/भदोही</option>
+        <option value="Bijnor">Bijnor/बिजनौर</option>
+        <option value="Budaun">Budaun/बदायूं</option>
+        <option value="Bulandshahr">Bulandshahr/बुलंदशहर</option>
+        <option value="Chandauli">Chandauli/चंदौली</option>
+        <option value="Chitrakoot">Chitrakoot/चित्रकूट</option>
+        <option value="Deoria">Deoria/देवरिया</option>
+        <option value="Etah">Etah/एटा</option>
+        <option value="Etawah">Etawah/एटावा</option>
+        <option value="Farrukhabad">Farrukhabad/फर्रुखाबाद</option>
+        <option value="Fatehpur">Fatehpur/फतेहपुर</option>
+        <option value="Firozabad">Firozabad/फिरोजाबाद</option>
+        <option value="Gautam Buddha Nagar">Gautam Buddha Nagar/गौतम बुद्ध नगर</option>
+        <option value="Ghaziabad">Ghaziabad/गाज़ियाबाद</option>
+        <option value="Ghazipur">Ghazipur/गाजीपुर</option>
+        <option value="Gonda">Gonda/गोंडा</option>
+        <option value="Gorakhpur">Gorakhpur/गोरखपुर</option>
+        <option value="Hamirpur">Hamirpur/हमीरपुर</option>
+        <option value="Hapur">Hapur/हापुड़</option>
+        <option value="Hardoi">Hardoi/हरदोई</option>
+        <option value="Hathras">Hathras/हाथरस</option>
+        <option value="Jalaun">Jalaun/जालौन</option>
+        <option value="Jaunpur">Jaunpur/जौनपुर</option>
+        <option value="Jhansi">Jhansi/झांसी</option>
+        <option value="Kannauj">Kannauj/कन्नौज</option>
+        <option value="Kanpur Dehat">Kanpur Dehat/कानपुर देहात</option>
+        <option value="Kanpur Nagar">Kanpur Nagar/कानपुर नगर</option>
+        <option value="Kasganj">Kasganj/कासगंज</option>
+        <option value="Kaushambi">Kaushambi/कौशांबी</option>
+        <option value="Kushinagar">Kushinagar/कुशीनगर</option>
+        <option value="Lakhimpur Kheri">Lakhimpur Kheri/लखीमपुर खीरी</option>
+        <option value="Lalitpur">Lalitpur/ललितपुर</option>
+        <option value="Lucknow">Lucknow/लखनऊ</option>
+        <option value="Maharajganj">Maharajganj/महराजगंज</option>
+        <option value="Mahoba">Mahoba/महोबा</option>
+        <option value="Mainpuri">Mainpuri/मैनपुरी</option>
+        <option value="Mathura">Mathura/मथुरा</option>
+        <option value="Mau">Mau/मऊ</option>
+        <option value="Meerut">Meerut/मेरठ</option>
+        <option value="Mirzapur">Mirzapur/मिर्जापुर</option>
+        <option value="Moradabad">Moradabad/मुरादाबाद</option>
+        <option value="Muzaffarnagar">Muzaffarnagar/मुजफ्फरनगर</option>
+        <option value="Pilibhit">Pilibhit/पिलीभीत</option>
+        <option value="Pratapgarh">Pratapgarh/प्रतापगढ़</option>
+        <option value="Prayagraj">Prayagraj/प्रयागराज</option>
+        <option value="Raebareli">Raebareli/रायबरेली</option>
+        <option value="Rampur">Rampur/रामपुर</option>
+        <option value="Saharanpur">Saharanpur/सहारनपुर</option>
+        <option value="Sambhal">Sambhal/संभल</option>
+        <option value="Sant Kabir Nagar">Sant Kabir Nagar/संत कबीर नगर</option>
+        <option value="Shahjahanpur">Shahjahanpur/शाहजहांपुर</option>
+        <option value="Shamli">Shamli/शामली</option>
+        <option value="Shravasti">Shravasti/श्रावस्ती</option>
+        <option value="Siddharthnagar">Siddharthnagar/सिद्धार्थनगर</option>
+        <option value="Sitapur">Sitapur/सीतापुर</option>
+        <option value="Sonbhadra">Sonbhadra/सोनभद्र</option>
+        <option value="Sultanpur">Sultanpur/सुलतानपुर</option>
+        <option value="Unnao">Unnao/उन्नाव</option>
+        <option value="Varanasi">Varanasi/वाराणसी</option>
+      </select>
+    </select>
+
+    <label for="service_type">Service Type / सेवा प्रकार</label>
+    <select id="service_type">
+      <option value="DoB">DoB/ जन्मतिथि</option>
+      <option value="Name">Name/ नाम</option>
+      <option value="Aadhaar Suspended">Aadhaar Suspended/ आधार कार्ड निलंबित</option>
+      <option value="Gender">Gender/ लिंग</option>
+      <option value="Lost Aadhaar">Lost Aadhaar/ आधार कार्ड खो गया</option>
+      <option value="Biometric Issue">Biometric Issue/ बायोमेट्रिक समस्या</option>
+      <option value="None of the above">None of the above/ उपरोक्त में से कोई नहीं</option>
+    </select>
+
+
+    <button type="submit">Generate Walk-in Token/ टोकन जनरेट करें</button>
+  </form>
+    <h3 style="color:black; font-weight:bold; text-align:center; line-height:1.4; font-size:8px;">
+    DISCLAIMER: RESIDENTS ARE SOLELY RESPONSIBLE FOR THE SECURITY OF THEIR DATA.
+    <br>
+    अस्वीकरण: निवासियों को अपने डेटा की सुरक्षा की पूर्ण जिम्मेदारी लेनी होगी। 
+  </h3>
+</div>
+
+<p id="status"></p>
+
+<script src="js/walkin.js?v=8"></script>
+</body>
+</html>

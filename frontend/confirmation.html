@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Token Slip</title>
+  <link rel="stylesheet" href="css/style.css?v=5">
+</head>
+
+<body>
+
+<header class="gov-header">
+  <div class="gov-left">
+    <img src="assets/india-emblem.png" alt="Government of India Logo" />
+  </div>
+  <div class="gov-center">
+    <h1>Government of India</h1>
+    <p>Appointment & Walk-in Token Management System</p>
+  </div>
+  <div class="gov-right">
+    <img src="assets/Aadhaar_Small.png" alt="Department Logo" />
+  </div>
+</header>
+
+<!-- ✅ BUTTONS MOVED ABOVE SLIP -->
+<div class="actions">
+  <button class="download-btn" onclick="downloadSlip()">⬇ Download Slip (PDF)</button>
+  <button class="print-btn" onclick="window.print()">🖨 Print</button>
+</div>
+
+<div class="slip">
+  <h2 id="slipTitle">Token Slip</h2>
+  <div id="slipContent"></div>
+</div>
+
+<!-- ✅ OUTSIDE CONTENT (MBU, DOWNLOAD, BHUVAN) -->
+<div id="outsideSections"></div>
+
+<script src="js/html2pdf.bundle.min.js"></script>
+
+<script>
+  let TOKENS_PER_HOUR = 40; // default
+
+async function fetchTokensPerHour(date) {
+  try {
+    const res = await fetch(
+      `http://localhost:5000/api/admin/tokens-per-hour?date=${date}`
+    );
+
+    const data = await res.json();
+
+    //beyond anything give 5-6 only
+    return "5:00 PM – 6:00 PM";
+    TOKENS_PER_HOUR = data.tokensPerHour || 40;
+
+  } catch (e) {
+    TOKENS_PER_HOUR = 40;
+  }
+}
+
+
+<!-- function getExpectedServiceTime(token) { -->
+<!--   if (!token) return ""; -->
+
+<!--   const num = parseInt(token.split("-")[0]); -->
+
+<!--   const slotIndex = Math.floor((num - 1) / TOKENS_PER_HOUR); -->
+
+<!--   const startHour = 10 + slotIndex; -->
+<!--   const endHour = startHour + 1; -->
+
+<!--   function format(h) { -->
+<!--     const hour = h > 12 ? h - 12 : h; -->
+<!--     const ampm = h >= 12 ? "PM" : "AM"; -->
+<!--     return `${hour}:00 ${ampm}`; -->
+<!--   } -->
+
+<!--   return `${format(startHour)} – ${format(endHour)}`; -->
+<!-- } -->
+
+function getExpectedServiceTime(token) {
+
+  if (!token) return "";
+
+  const num = parseInt(token.split("-")[0]);
+
+  let slotIndex = Math.floor((num - 1) / TOKENS_PER_HOUR);
+
+  // stop at 5-6 PM
+  if (slotIndex > 7) slotIndex = 7;
+
+  const startHour = 10 + slotIndex;
+  const endHour = startHour + 1;
+
+  function format(h) {
+    const hour = h > 12 ? h - 12 : h;
+    const ampm = h >= 12 ? "PM" : "AM";
+    return `${hour}:00 ${ampm}`;
+  }
+
+  return `${format(startHour)} – ${format(endHour)}`;
+}
+
+  function formatDisplayToken(fullToken) {
+    const parts = fullToken.split("-");
+    return `${parts[0]}-${parts[2]}`; 
+  }
+
+    const data = JSON.parse(localStorage.getItem("tokenData"));
+  const slipContent = document.getElementById("slipContent");
+  const slipTitle = document.getElementById("slipTitle");
+  const outsideSections = document.getElementById("outsideSections");
+
+  if (!data) {
+  slipContent.innerHTML = "<p>No token data found.</p>";
+} else {
+
+  (async function() {
+
+    await fetchTokensPerHour(data.selected_date || data.selected_date);
+
+    const isWalkin = data.mode === "W";
+
+    slipTitle.innerText = isWalkin
+      ? "Walk-in Token Slip"
+      : "Appointment Token Slip";
+      const tokenParts = data.token.split("-");
+const mainToken = `${tokenParts[0]}-${tokenParts[1]}`;
+const aadhaarPart = tokenParts[2];
+
+    slipContent.innerHTML = `
+      <div class="token-box">
+        <div class="token-label">TOKEN NUMBER</div>
+        <div class="token-value">
+  ${mainToken}
+  <div style="font-size:28px; margin-top:5px;">
+    ${aadhaarPart}
+  </div>
+</div>
+
+      </div>
+
+      <div style="text-align:center; margin-top:8px;">
+        <strong>Expected Service Time / अपेक्षित सेवा समय:</strong><br>
+        <span style="font-size:16px;">
+          ${getExpectedServiceTime(data.token)}
+        </span>
+      </div>
+
+      <p><strong>${isWalkin ? "Visit Date" : "Appointment Date"}:</strong>
+        ${data.date || data.selected_date}</p>
+      <p><strong>Name:</strong> ${data.name}</p>
+      <p><strong>Mobile:</strong> ${data.mobile}</p>
+      <p><strong>District:</strong> ${data.district}</p>
+      <p><strong>Service Type:</strong> ${data.service_type}</p>
+      <p><strong>Generated On:</strong>
+        ${new Date().toLocaleString("en-IN", {
+          timeZone: "Asia/Kolkata",
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: true
+        })}
+      </p>
+
+      <hr>
+
+      <div style="font-size:13px;">
+        <strong>Service Advisory:</strong><br>
+        Service before or after the scheduled time is subject to availability.<br>
+        यदि आप अपेक्षित सेवा समय से पहले या बाद में पहुंचते हैं,
+        तो सेवा उपलब्धता के आधार पर प्रदान की जाएगी।
+      </div>
+    `;
+
+  })();
+
+    /* ✅ OUTSIDE SECTIONS (Centered by your CSS) */
+    outsideSections.innerHTML = `
+  <div class="token-box">
+
+    <strong>Download the new Aadhaar App</strong><br>
+    <a href="https://play.google.com/store/apps/details?id=in.gov.uidai.pehchaan" target="_blank">
+      Download for Android
+    </a>
+    <br>
+    <a href="https://apps.apple.com/in/app/aadhaar/id6744029871" target="_blank">
+      Download for iOS
+    </a>
+
+    <hr>
+
+    <strong>Biometric Update Information:</strong>
+    <ul>
+      <li>Children: Mandatory biometric update for age group 5–17 is free of cost.</li>
+      <li>Adults: It is recommended to update biometrics every 10 years to maintain data accuracy.</li>
+    </ul>
+
+    <strong>बायोमेट्रिक अपडेट संबंधी जानकारी:</strong>
+    <ul>
+      <li>बच्चे: 5–17 वर्ष की आयु वर्ग के बच्चों के लिए बायोमेट्रिक अपडेट अनिवार्य है और यह निःशुल्क है।</li>
+      <li>वयस्क: डेटा की सटीकता बनाए रखने के लिए हर 10 साल में बायोमेट्रिक्स अपडेट कराएँ।</li>
+    </ul>
+
+    <hr>
+
+    <strong>Aadhaar Update Centre Information:</strong><br>
+    To update your Aadhaar, please visit your nearest Enrolment/Update Centre.<br>
+    The list of centres is available on the UIDAI Bhuvan Portal:<br>
+    <span style="word-break:break-all;">
+      https://bhuvan.nrsc.gov.in/aadhaar/
+    </span>
+
+  </div>
+`;
+
+  }
+</script>
+
+<script>
+  function downloadSlip() {
+    const slip = document.querySelector(".slip");
+
+    if (!slip || !data) {
+      alert("Unable to download slip");
+      return;
+    }
+
+    const options = {
+      margin: 0.3,
+      filename: `${data.token}.pdf`,
+      image: { type: "jpeg", quality: 1 },
+      html2canvas: { 
+        scale: 2,
+        scrollY: 0
+      },
+      jsPDF: { 
+        unit: "in", 
+        format: "a4", 
+        orientation: "portrait" 
+      },
+      pagebreak: { mode: ['avoid-all'] }
+    };
+
+    html2pdf().set(options).from(slip).save();
+  }
+</script>
+
+<script>
+  history.pushState(null, null, location.href);
+  window.onpopstate = function () {
+    history.go(1);
+  };
+</script>
+
+<p style="text-align:center; font-size:13px; color:#555;">
+  ❗Please close this page after downloading the slip.
+  To generate a new token, start from the home page.
+</p>
+
+<script>
+  const tokenData = localStorage.getItem("tokenData");
+  if (!tokenData) {
+    alert("Invalid access. Please generate a token first.");
+    window.location.href = "index.html";
+  }
+</script>
+
+<script>
+  setTimeout(() => {
+    localStorage.removeItem("tokenData");
+  }, 1000);
+</script>
+
+</body>
+</html>
