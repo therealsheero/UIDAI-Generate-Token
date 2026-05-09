@@ -51,112 +51,7 @@ exports.guardLogin = (req, res) => {
     message: "Invalid credentials"
   });
 };
-// exports.guardLogin = (req, res) => {
-//   const { username, password } = req.body;
 
-//   if (
-//     username === GUARD_USERNAME &&
-//     password === GUARD_PASSWORD
-//   ) {
-//     return res.json({
-//       success: true,
-//       token: "GUARD_SESSION"
-//     });
-//   }
-
-//   res.status(401).json({ message: "Invalid credentials" });
-// };
-// exports.guard2Login = (req, res) => {
-
-//   const { username, password } = req.body;
-
-//   if (
-//     username === GUARD2_USERNAME &&
-//     password === GUARD2_PASSWORD
-//   ) {
-
-//     return res.json({
-//       success: true,
-//       token: "GUARD2_SESSION"
-//     });
-//   }
-
-//   res.status(401).json({
-//     message: "Invalid credentials"
-//   });
-// };
-// exports.guard3Login = (req, res) => {
-
-//   const { username, password } = req.body;
-
-//   if (
-//     username === GUARD3_USERNAME &&
-//     password === GUARD3_PASSWORD
-//   ) {
-
-//     return res.json({
-//       success: true,
-//       token: "GUARD3_SESSION"
-//     });
-//   }
-
-//   res.status(401).json({
-//     message: "Invalid credentials"
-//   });
-// };
-// exports.addPhysicalReferenceEntry = (req, res) => {
-
-//   const {
-//     name,
-//     age,
-//     mobile,
-//     aadhaar_last4,
-//     gender,
-//     district,
-//     service_type,
-//     token_type
-//   } = req.body;
-
-//   db.run(
-//     `
-//     INSERT INTO physical_reference_entries (
-
-//       name,
-//       age,
-//       mobile,
-//       aadhaar_last4,
-//       gender,
-//       district,
-//       service_type,
-//       token_type
-
-//     )
-//     VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-//     `,
-//     [
-//       name,
-//       age,
-//       mobile,
-//       aadhaar_last4,
-//       gender,
-//       district,
-//       service_type,
-//       token_type
-//     ],
-//     err => {
-
-//       if (err) {
-//         return res.status(500).json({
-//           message: "DB error"
-//         });
-//       }
-
-//       res.json({
-//         success: true
-//       });
-//     }
-//   );
-// };
 exports.addPhysicalReferenceEntry = (req, res) => {
 
   const {
@@ -305,7 +200,6 @@ exports.getTokensPerHourToday2 = (req, res) => {
     }
   );
 };
-// TODAY TOKENS ONLY
 exports.undoEntry = (req, res) => {
   const { token_id } = req.body;
 
@@ -420,40 +314,6 @@ exports.getServiceTokens = (req, res) => {
 
 
 
-
-// exports.getTodayTokens = (req, res) => {
-//   const today = new Date().toISOString().split("T")[0];
-
-  // db.all(
-  //   `
-  //   SELECT *
-  //   FROM tokens
-  //   WHERE date = ?
-  //   AND (
-  //     visited = 0
-  //     OR (visited = 1 AND datetime(visited_at) >= datetime('now', '-10 minutes'))
-  //   )
-  //   ORDER BY created_at ASC
-  //   `,
-//   db.all(
-//     `
-//     SELECT *
-//     FROM tokens
-//     WHERE date = ?
-//       AND (
-//   entry_marked = 0
-//   OR (entry_marked = 1 AND visited = 0)
-//   OR (visited = 1 AND datetime(visited_at) >= datetime('now', 'localtime','-1 minutes'))
-// )
-//     ORDER BY created_at ASC
-//     `,
-//     [today],
-//     (err, rows) => {
-//       if (err) return res.status(500).json({ message: "DB error" });
-//       res.json(rows);
-//     }
-//   );
-// };
 exports.markVisited = (req, res) => {
   const { token_id } = req.body;
 
