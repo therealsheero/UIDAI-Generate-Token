@@ -21,8 +21,6 @@
     <img src="assets/Aadhaar_Small.png" alt="Department Logo" />
   </div>
 </header>
-
-<!-- ✅ BUTTONS MOVED ABOVE SLIP -->
 <div class="actions">
   <button class="download-btn" onclick="downloadSlip()">⬇ Download Slip (PDF)</button>
   <button class="print-btn" onclick="window.print()">🖨 Print</button>
@@ -32,8 +30,6 @@
   <h2 id="slipTitle">Token Slip</h2>
   <div id="slipContent"></div>
 </div>
-
-<!-- ✅ OUTSIDE CONTENT (MBU, DOWNLOAD, BHUVAN) -->
 <div id="outsideSections"></div>
 
 <script src="js/html2pdf.bundle.min.js"></script>
@@ -58,25 +54,6 @@ async function fetchTokensPerHour(date) {
   }
 }
 
-
-<!-- function getExpectedServiceTime(token) { -->
-<!--   if (!token) return ""; -->
-
-<!--   const num = parseInt(token.split("-")[0]); -->
-
-<!--   const slotIndex = Math.floor((num - 1) / TOKENS_PER_HOUR); -->
-
-<!--   const startHour = 10 + slotIndex; -->
-<!--   const endHour = startHour + 1; -->
-
-<!--   function format(h) { -->
-<!--     const hour = h > 12 ? h - 12 : h; -->
-<!--     const ampm = h >= 12 ? "PM" : "AM"; -->
-<!--     return `${hour}:00 ${ampm}`; -->
-<!--   } -->
-
-<!--   return `${format(startHour)} – ${format(endHour)}`; -->
-<!-- } -->
 
 function getExpectedServiceTime(token) {
 
@@ -177,7 +154,6 @@ const aadhaarPart = tokenParts[2];
 
   })();
 
-    /* ✅ OUTSIDE SECTIONS (Centered by your CSS) */
     outsideSections.innerHTML = `
   <div class="token-box">
 
