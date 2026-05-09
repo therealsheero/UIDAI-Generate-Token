@@ -5,17 +5,6 @@ const form = document.getElementById("bookingForm");
 const formWrapper = document.getElementById("formWrapper");
 
 
-//function normalizeDropdownValues(selectId) {
-//  const select = document.getElementById(selectId);
-//
-//  Array.from(select.options).forEach(opt => {
-//    const english = opt.text.split("/")[0].trim();
-//    opt.value = english;
-//  });
-//}
-//
-//normalizeDropdownValues("district");
-//normalizeDropdownValues("service_type");
 const distance = Number(localStorage.getItem("distance_meters") || 9999);
 function fillTimeDropdowns() {
 
@@ -120,13 +109,6 @@ function isValidIndianMobile(mobile) {
   return /^[6-9]\d{9}$/.test(mobile);
 }
 
-//if (distance > 100) {
-//  infoText.innerText = "❌ Walk-in allowed only inside office premises";
-//  formWrapper.style.display = "none";
-//} else {
-//  infoText.innerText = "✅ You are inside office premises";
-//  formWrapper.style.display = "block";
-//}
 function isBefore11IST() {
   const now = new Date();
   const ist = new Date(
@@ -139,14 +121,14 @@ function isBefore11IST() {
 
 if (isBefore11IST()) {
 
-  // BEFORE 11 → No geofencing
+  // BEFORE 11 no geofencing
   infoText.innerText = "✅ Walk-in booking available";
 
   formWrapper.style.display = "block";
 
 } else {
 
-  // AFTER 11 → Apply geofencing
+  // AFTER 11 apply geofencing
   if (distance > 100) {
     infoText.innerText =
       "❌ Walk-in allowed only inside office premises";
@@ -160,9 +142,6 @@ if (isBefore11IST()) {
   }
 
 }
-// =============================
-// LOAD WALK-IN AVAILABILITY
-// =============================
 async function loadWalkinAvailability() {
   try {
     const res = await fetch("http://localhost:5000/api/walkin-availability");
@@ -196,10 +175,6 @@ async function loadWalkinAvailability() {
 }
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
-//   if (!otpVerified) {
-//   statusText.innerText = "Please verify OTP first";
-//   return;
-// }
 localStorage.removeItem("tokenData");
   const mobileValue = document.getElementById("mobile").value.trim();
 
@@ -211,13 +186,12 @@ localStorage.removeItem("tokenData");
 
   const payload = {
     mode: "W",
-    // device_id: getDeviceId(),
+    device_id: getDeviceId(),
     name: document.getElementById("name").value.trim(),
     mobile: mobileValue,
     aadhaar_last4: document.getElementById("aadhaar").value.trim(),
     gender: document.getElementById("gender").value,
     age: Number(document.getElementById("age").value),
-//    divyang: document.getElementById("divyang").value,
     district: document.getElementById("district").value,
     service_type: document.getElementById("service_type").value,
     qrc: document.getElementById("qrc").value.trim(),
