@@ -425,49 +425,7 @@ async function saveTokensPerHour(date) {
 
   alert("Updated successfully");
 }
-// async function loadPhysicalEntries() {
 
-//   const res = await fetch(
-//     "http://localhost:5000/api/admin/physical-reference-entry",
-//     {
-//       headers: {
-//         "x-admin-token": adminToken
-//       }
-//     }
-//   );
-
-//   const rows = await res.json();
-
-//   console.log("PHYSICAL ENTRIES:", rows);
-
-//   const tbody =
-//     document.querySelector("#physicalTable tbody");
-
-//   tbody.innerHTML = "";
-
-//   rows.forEach((row, i) => {
-
-//     const tr = document.createElement("tr");
-
-//     tr.innerHTML = `
-
-//       <td>${i + 1}</td>
-//       <td>${row.token}</td>
-//       <td>${row.name}</td>
-//       <td>${row.age}</td>
-//       <td>${row.mobile}</td>
-//       <td>${row.aadhaar_last4}</td>
-//       <td>${row.gender}</td>
-//       <td>${row.district}</td>
-//       <td>${row.service_type}</td>
-//       <td>${row.token_type}</td>
-//       <td>${formatDateTime(row.created_at)}</td>
-
-//     `;
-
-//     tbody.appendChild(tr);
-//   });
-// }
 async function loadCalendar() {
   calendar.innerHTML = "Loading...";
 
@@ -493,26 +451,7 @@ async function loadCalendar() {
   data.forEach(d => {
     const div = document.createElement("div");
     div.className = "date-box";
-//    div.innerHTML = `
-//  <b>${d.date}</b><br>
-//  Appointment: ${d.appointment_booked}/${d.appointment_total}<br>
-//  Walk-in: ${d.walkin_booked}/${d.walkin_total}<br><br>
-//
-//  <small>Tokens / Hour:</small><br>
-//  <input type="number" 
-//         value="${d.tokens_per_hour || 40}" 
-//         min="1"
-//         style="width:60px;"
-//         id="tph-${d.date}">
-//  <button onclick="saveTokensPerHour('${d.date}')">Save</button>
-//`;
-//
-//    div.innerHTML += `
-//  <br>
-//  <button onclick="editSlots('${d.date}', ${d.appointment_total}, ${d.walkin_total}); event.stopPropagation();">
-//     Edit Slots
-//  </button>
-//`;
+
 div.innerHTML = `
   <b>${d.date}</b><br>
   Appointment: ${d.appointment_booked}/${d.appointment_total}<br>
@@ -567,88 +506,6 @@ async function editSlots(date, ap, wl) {
 }
 
 
-// async function loadTokens(date) {
-  
-//   currentDate = date;
-//   await loadDashboard(date);
-//   tbody.innerHTML = "Loading...";
-//   table.style.display = "table";
-//   tableHeading.innerText = "Token Details for " + formatDate(date);
-//   tableHeading.style.display = "block";
-//   actions.style.display = "flex";
-
-//   const res = await fetch(`http://localhost:5000/api/admin/tokens?date=${date}`, {
-//     headers: { "x-admin-token": adminToken }
-//   });
-  
-// const data = await res.json();
-// document.getElementById("dashboardHeading").style.display = "block";
-// document.getElementById("dashboardHeading").innerText =
-//   "Dashboard Summary for " + formatDate(date);
-
-// currentTableData = data; 
-//   tbody.innerHTML = "";
-
-//   data.forEach((row, i) => {
-//     const tr = document.createElement("tr");
-//     // const tokenParts = row.token.split("-");
-//     // const tokenCount = tokenParts[0];
-//     const tokenValue = row.token || "-";
-
-// const tokenParts =
-//   tokenValue.includes("-")
-//     ? tokenValue.split("-")
-//     : [tokenValue, "-", "-"];
-
-// const tokenCount = tokenParts[0] || "-";
-// const tokenType  = tokenParts[1] || row.token_type || "-";
-//     const expectedTime =
-//   row.source_type === "physical_reference"
-//     ? "-"
-//     : getExpectedTime(tokenCount,currentTokensPerHour);
-//     // const expectedTime = getExpectedTime(tokenCount,currentTokensPerHour);
-//     // const tokenType  = tokenParts[1];
-//     const aadhaar    = tokenParts[2];
-
-//  if (tokenType === "AP") tr.style.background = "#fce4ec";
-// else if (tokenType === "AL") tr.style.background = "#e3f2fd";
-// else if (tokenType === "AN") tr.style.background = "#ffffe0";
-
-// else if (tokenType === "WP") tr.style.background = "#fce4ec";
-// else if (tokenType === "WL") tr.style.background = "#e3f2fd";
-// else if (tokenType === "WN") tr.style.background = "#ffffff";
- 
-//     tr.innerHTML = `
-//       <td>${i + 1}</td>
-//       <td>${formatDateTime(row.created_at)}</td>
-//       <td>${formatDate(row.date)}</td>
-//       <td>${tokenCount}</td>
-//       <td>${tokenType}</td>
-//       <td>${row.name}</td>
-//       <td>${row.mobile}</td>
-//       <td>${row.gender}</td>
-//       <td>${row.age}</td>
-//       <td>${row.district ? row.district.split("/")[0].trim() : "-"}</td>
-//       <td>${row.service_type ? row.service_type.split("/")[0].trim() : "-"}</td>
-//       <td>${expectedTime}</td>
-//       <td style="color:${row.visited_at ? 'blue' : 'red'}; font-weight:bold;">${row.entry_time ? formatDateTime(row.entry_time) : "Not Entered"}</td>
-//       <td style="color:${row.visited_at ? 'green' : 'red'}; font-weight:bold;"> ${row.visited_at ? formatDateTime(row.visited_at) : "Not Visited"}</td>
-//       <td>
-//   ${
-//     row.entry_time && row.visited_at
-//       ? getTimeTaken(row.entry_time, row.visited_at)
-//       : "-"
-//   }
-// </td>
-//       <td>${row.reference_of || "-"}</td>
-
-//     `;
-
-//     tbody.appendChild(tr);
-//     // loadTodaySummary();
-    
-//   });
-// }
 async function loadTokens(date) {
   
   currentDate = date;
@@ -685,17 +542,9 @@ async function loadTokens(date) {
 
   tbody.innerHTML = "";
 
-  // =========================
-  // TRACK SECTION
-  // =========================
-
   let previousSource = null;
 
   data.forEach((row, i) => {
-
-    // =========================
-    // ADD DIVIDER
-    // =========================
 
     if (
   row.source_type === "physical_reference" &&
@@ -726,11 +575,6 @@ async function loadTokens(date) {
 
       previousSource = row.source_type;
     }
-
-    // =========================
-    // NORMAL ROW
-    // =========================
-
     const tr = document.createElement("tr");
 
     const tokenValue = row.token || "-";
