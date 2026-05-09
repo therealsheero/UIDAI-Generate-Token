@@ -29,24 +29,14 @@ function generateEID(
   eidDate,
   eidTime
 ) {
-
-  // Remove all non-digits
   const enroll =
     enrollmentNo.replace(/\D/g, "");
-
-  // Date comes YYYY-MM-DD
   const [year, month, day] =
     eidDate.split("-");
-
-  // convert to YYYYMMDD
   const datePart =
     `${year}${month}${day}`;
-
-  // remove :
   const timePart =
     eidTime.replace(/:/g, "");
-
-  // FINAL EID
   return enroll + datePart + timePart;
 }
 exports.generateToken = async (req, res) => {
@@ -111,11 +101,6 @@ if (enrollDigits.length !== 14) {
       await new Promise((resolve, reject) =>
         db.run("BEGIN IMMEDIATE TRANSACTION", err => err ? reject(err) : resolve())
       );
-
-
-    // =========================
-    // 1️DUPLICATE QRC CHECK
-    // =========================
     const qrcExists = await new Promise((resolve, reject) => {
       db.get(
         "SELECT id FROM tokens WHERE qrc = ?",
