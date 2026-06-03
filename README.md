@@ -99,27 +99,34 @@ Designed and deployed a full-stack Token & Appointment Management System featuri
 ## Screenshots
 
 ### First Page
-<img width="1899" height="910" alt="image" src="https://github.com/user-attachments/assets/9cdfd9fb-7258-466a-984e-880df3423ffa" />
+<img width="1215" height="686" alt="image" src="https://github.com/user-attachments/assets/5b0135cb-ffb8-446a-9fc2-e463b36f5c9b" />
+
 
 ### Appointment Portal
 
-<img width="1897" height="909" alt="image" src="https://github.com/user-attachments/assets/2f33c712-6135-4acb-a388-1311056514df" />
+<img width="1214" height="508" alt="image" src="https://github.com/user-attachments/assets/eec614d6-c9a5-48b4-8dd9-284fdd958f28" />
+
 
 ### Walk-in Portal
+<img width="1217" height="471" alt="image" src="https://github.com/user-attachments/assets/1a9b8ddd-7523-4017-9e61-8e99b76c1fa8" />
 
 ### Resident Form
+<img width="1218" height="686" alt="image" src="https://github.com/user-attachments/assets/78b06043-6c95-4b3b-96e4-7777a43f2c44" />
 
 ### Token Confirmation Slip
 <img width="1235" height="695" alt="image" src="https://github.com/user-attachments/assets/05189dbc-dc37-4f36-b9f4-10aaeaa6d19d" />
 <img width="1232" height="691" alt="image" src="https://github.com/user-attachments/assets/477fdaab-e392-4d69-af88-f8434e4966eb" />
 
 ### Admin Dashboard
-
+<img width="1226" height="613" alt="image" src="https://github.com/user-attachments/assets/d48a36da-3e1b-4835-bee4-39f20440a059" />
+<img width="1161" height="668" alt="image" src="https://github.com/user-attachments/assets/01e73f5b-1b95-4297-9737-020532a05b0a" />
+<img width="1191" height="539" alt="Screenshot 2026-06-03 114249" src="https://github.com/user-attachments/assets/64f7b2e8-b72c-4369-be72-5629dc3b9063" />
 
 ### Heatmap Analytics
 
 
 ### Guard Dashboards
+<img width="1222" height="666" alt="Screenshot 2026-06-03 114618" src="https://github.com/user-attachments/assets/a95c7a1f-19dc-4cd1-8ea8-b050f3d0e526" />
 
 
 ---
