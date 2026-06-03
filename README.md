@@ -110,8 +110,8 @@ Designed and deployed a full-stack Token & Appointment Management System featuri
 ### Resident Form
 
 ### Token Confirmation Slip
-
-
+<img width="1235" height="695" alt="image" src="https://github.com/user-attachments/assets/05189dbc-dc37-4f36-b9f4-10aaeaa6d19d" />
+<img width="1232" height="691" alt="image" src="https://github.com/user-attachments/assets/477fdaab-e392-4d69-af88-f8434e4966eb" />
 
 ### Admin Dashboard
 
