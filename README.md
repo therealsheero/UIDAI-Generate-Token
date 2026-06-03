@@ -124,9 +124,15 @@ Designed and deployed a full-stack Token & Appointment Management System featuri
 
 ### Heatmap Analytics
 
+<img width="1225" height="687" alt="image" src="https://github.com/user-attachments/assets/f1d55c52-45eb-4fe7-a127-f4093ae79222" />
+
 
 ### Guard Dashboards
-<img width="1222" height="666" alt="Screenshot 2026-06-03 114618" src="https://github.com/user-attachments/assets/a95c7a1f-19dc-4cd1-8ea8-b050f3d0e526" />
+<img width="1216" height="672" alt="Screenshot 2026-06-03 224050" src="https://github.com/user-attachments/assets/954569f3-5856-482b-a421-d60d3491803d" />
+<img width="1218" height="671" alt="Screenshot 2026-06-03 224102" src="https://github.com/user-attachments/assets/e515c586-e4e9-479c-83d9-513627e2b1b7" />
+<img width="1206" height="663" alt="Screenshot 2026-06-03 224111" src="https://github.com/user-attachments/assets/e8e894bd-02aa-4395-916a-360d35f0a7ab" />
+
+
 
 
 ---
