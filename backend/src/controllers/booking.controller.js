@@ -117,7 +117,7 @@ if (enrollDigits.length !== 14) {
     if(qrcCountForMobile >=2){ 
      throw new Error("Only 2 QRCs allowed per mobile number.");
     }
-//validating mobile limit=
+//validating mobile limit
     const tokenCount = await new Promise((resolve, reject) => {
       db.get(
         "SELECT COUNT(*) AS count FROM tokens WHERE mobile = ?",
@@ -169,33 +169,9 @@ if (deviceTokenExists) {
   );
 }
     await reserveSlot(bookingDate, mode);
-//    const{ token, priority } = await generateDailyToken(
-//      name,
-//      mobile,
-//      bookingDate,
-//      age,
-//      gender,
-//      divyang,
-//      mode
-//    );
+
     const cleanDistrict = normalizeDistrict(district);
-//const longDistance = [
-//    "Baghpat",
-//    "Bijnor",
-//    "Bulandshahr",
-//    "Gautam Buddha Nagar",
-//    "Ghaziabad",
-//    "Gorakhpur",
-//    "Hapur",
-//    "Lalitpur",
-//    "Meerut",
-//    "Muzaffarnagar",
-//    "Pilibhit",
-//    "Saharanpur",
-//    "Shamli",
-//    "Sonbhadra",
-//    "Varanasi"
-//].includes(cleanDistrict);
+
 const districts = await new Promise((resolve,reject)=>{
   db.all(
     "SELECT district FROM priority_districts",
@@ -231,14 +207,12 @@ if (mode === "A") {
   const isToday = bookingDate === todayIST;
   const before10 = ist.getHours() < 6; // 6 AM 
 
-  //PRIORITY FIRST
   if (age <= childAge || age >= seniorAge) {
     tokenType = "AP";
   } 
   else if (gender === "Female" && age >= femaleAge) {
     tokenType = "AP";
   } 
-  // THEN distance logic
   else if (isToday && before10 && isLongDistance) {
     tokenType = "AL";
   } 
@@ -248,14 +222,12 @@ if (mode === "A") {
 }
 else {
 
-  //PRIORITY FIRST
   if (age <= childAge || age >= seniorAge) {
     tokenType = "WP";
   }  
   else if (gender === "Female" && age >= femaleAge) {
     tokenType = "WP";
   }
-  // THEN distance
   else if (isLongDistance) {
     tokenType = "WL";
   }
