@@ -633,7 +633,7 @@ ORDER BY token_type
       districts: districtRows,
       tokenTypes: tokenTypeRows,
       tokensPerHour: tokensPerHour,
-      hourlyStats: bracketArray   // ? keep same key so frontend works
+      hourlyStats: bracketArray  
     });
   }
 );
