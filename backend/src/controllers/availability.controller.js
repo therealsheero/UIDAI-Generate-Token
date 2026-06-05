@@ -88,7 +88,7 @@ exports.getAvailability = async (req, res) => {
               holiday_reason: null
             });
       
-            if (workingDays.length === 7) break;  // 🔥 Stop at 15 working days
+            if (workingDays.length === 7) break;
           }
       
           res.json(workingDays);
